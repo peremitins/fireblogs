@@ -1,5 +1,5 @@
 <template>
-	<div class="blog-wrapper no-user">
+	<div class="blog-wrapper" :class="{ 'no-user': !user }">
 		<div class="blog-content">
 			<div>
 				<h2 v-if="post.welcomeScreen">{{ post.title }}</h2>
@@ -37,6 +37,11 @@ export default {
 	props: ["post"],
 	components: {
 		Arrow
+	},
+	computed: {
+		user() {
+			return this.$store.state.user;
+		}
 	}
 };
 </script>
@@ -51,6 +56,15 @@ export default {
 		min-height: 650px;
 		max-height: 650px;
 		flex-direction: row;
+	}
+	&:nth-child(1) img {
+		transform-origin: bottom;
+	}
+	&:nth-child(2) img {
+		transform-origin: left;
+	}
+	&:nth-child(3) img {
+		transform-origin: top;
 	}
 	.blog-content {
 		display: flex;
@@ -114,6 +128,7 @@ export default {
 	.blog-photo {
 		order: 1;
 		flex: 3;
+		overflow: hidden;
 		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 		@media (min-width: 700px) {
 			order: 2;
@@ -126,6 +141,12 @@ export default {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
+			transition: all 1s ease;
+			will-change: transform;
+			backface-visibility: hidden;
+			&:hover {
+				transform: scale(1.4);
+			}
 		}
 	}
 	&:nth-child(even) {

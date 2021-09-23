@@ -1,13 +1,15 @@
 <template>
 	<div class="blog-card">
-		<div class="icons">
-			<div class="icon">
-				<Edit class="edit" />
+		<transition name="editButtonsAnim">
+			<div v-show="$store.state.editPost" class="icons">
+				<div class="icon">
+					<Edit class="edit" />
+				</div>
+				<div class="icon">
+					<Delete class="delete" />
+				</div>
 			</div>
-			<div class="icon">
-				<Delete class="delete" />
-			</div>
-		</div>
+		</transition>
 		<img
 			:src="require(`@/assets/blogCards/${post.blogCoverPhoto}.jpg`)"
 			alt=""
@@ -28,7 +30,7 @@ import Edit from "@/assets/icons/edit-regular.svg";
 import Delete from "@/assets/icons/trash-regular.svg";
 
 export default {
-	name: "BlogCards",
+	name: "BlogCard",
 	props: ["post"],
 	components: {
 		Arrow,
@@ -132,5 +134,19 @@ export default {
 			}
 		}
 	}
+}
+.editButtonsAnim-enter-active,
+.editButtonsAnim-leave-active {
+	transition: all 1s ease;
+}
+.editButtonsAnim-enter {
+	opacity: 0;
+}
+.editButtonsAnim-enter-to {
+	opacity: 1;
+}
+.editButtonsAnim-leave-to {
+	transition: all 0.5s ease;
+	opacity: 0;
 }
 </style>
