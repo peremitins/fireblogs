@@ -10,7 +10,9 @@
 				<ul v-show="!mobile">
 					<router-link class="link" :to="{ name: 'Home' }">Home</router-link>
 					<router-link class="link" :to="{ name: 'Blogs' }">Blogs</router-link>
-					<router-link class="link" to="/">Create Post</router-link>
+					<router-link class="link" :to="{ name: 'CreatePost' }"
+						>Create Post</router-link
+					>
 					<router-link v-if="!user" class="link" :to="{ name: 'Login' }"
 						>Login/Register</router-link
 					>
@@ -35,19 +37,19 @@
 							</div>
 						</div>
 						<div class="options">
-							<div class="option">
+							<div class="option option--mod">
 								<router-link class="option" :to="{ name: 'Profile' }">
 									<UserIcon class="icon" />
 									<p>Profile</p>
 								</router-link>
 							</div>
-							<div class="option">
+							<div class="option option--mod">
 								<router-link class="option" :to="{ name: 'Admin' }">
 									<AdminIcon class="icon" />
 									<p>Admin</p>
 								</router-link>
 							</div>
-							<div @click="signOut" class="option">
+							<div @click="signOut" class="option option--mod">
 								<SignOutIcon class="icon" />
 								<p>Sign Out</p>
 							</div>
@@ -61,7 +63,9 @@
 			<ul class="mobile-nav" v-show="mobileNav">
 				<router-link class="link" :to="{ name: 'Home' }">Home</router-link>
 				<router-link class="link" :to="{ name: 'Blogs' }">Blogs</router-link>
-				<router-link class="link" to="/">Create Post</router-link>
+				<router-link class="link" :to="{ name: 'CreatePost' }"
+					>Create Post</router-link
+				>
 				<router-link v-if="!user" class="link" :to="{ name: 'Login' }"
 					>Login/Register</router-link
 				>
@@ -224,13 +228,16 @@ header {
 						}
 					}
 					.options {
-						padding: 15px;
 						.option {
 							text-decoration: none;
 							color: #fff;
 							display: flex;
 							align-items: center;
-							margin-bottom: 12px;
+							height: 40px;
+							width: 100%;
+							&:hover {
+								background-color: #666;
+							}
 							.icon {
 								width: 18px;
 								height: auto;
@@ -243,6 +250,9 @@ header {
 								margin-bottom: 0;
 							}
 						}
+					}
+					.option--mod {
+						padding: 0 10px;
 					}
 				}
 			}
