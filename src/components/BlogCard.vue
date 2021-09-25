@@ -2,10 +2,10 @@
 	<div class="blog-card">
 		<transition name="editButtonsAnim">
 			<div v-show="$store.state.editPost" class="icons">
-				<div class="icon">
+				<div @click="editPosts" class="icon">
 					<Edit class="edit" />
 				</div>
-				<div class="icon">
+				<div @click="deletePost" class="icon">
 					<Delete class="delete" />
 				</div>
 			</div>
@@ -19,7 +19,9 @@
 					new Date(post.blogDate).toLocaleString("en-us", { dataStyle: "long" })
 				}}
 			</h6>
-			<router-link class="link" to="#"
+			<router-link
+				class="link"
+				:to="{ name: 'ViewBlog', params: { blogid: this.post.blogID } }"
 				>View The Post <Arrow class="arrow"
 			/></router-link>
 		</div>
@@ -38,6 +40,22 @@ export default {
 		Arrow,
 		Edit,
 		Delete
+	},
+	methods: {
+		deletePost() {
+			this.$store.dispatch("deletePost", this.post.blogID);
+		},
+		editPosts() {
+			this.$router.push({
+				name: "EditBlog",
+				params: { blogid: this.post.blogID }
+			});
+		}
+	},
+	computed: {
+		editPost() {
+			return this.$store.state.editPost;
+		}
 	}
 };
 </script>
