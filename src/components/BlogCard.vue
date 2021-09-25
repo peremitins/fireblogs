@@ -10,13 +10,15 @@
 				</div>
 			</div>
 		</transition>
-		<img
-			:src="require(`@/assets/blogCards/${post.blogCoverPhoto}.jpg`)"
-			alt=""
-		/>
+		<img :src="post.blogCoverPhoto" alt="" />
 		<div class="info">
 			<h4 class="blog-card-title">{{ post.blogTitle }}</h4>
-			<h4 class="blog-card-date">{{ post.blogDate }}</h4>
+			<h6 class="blog-card-date">
+				Posted on:
+				{{
+					new Date(post.blogDate).toLocaleString("en-us", { dataStyle: "long" })
+				}}
+			</h6>
 			<router-link class="link" to="#"
 				>View The Post <Arrow class="arrow"
 			/></router-link>

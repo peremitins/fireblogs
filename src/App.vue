@@ -33,6 +33,7 @@ export default {
 			}
 		});
 		this.checkRouter();
+		this.$store.dispatch("getPost");
 	},
 	mounted() {},
 	methods: {
