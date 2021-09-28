@@ -19,7 +19,7 @@
 				</ul>
 				<div
 					v-if="user"
-					@click="toggleProfileMenu"
+					@click.stop="toggleProfileMenu"
 					class="profile"
 					ref="profile"
 				>
@@ -37,13 +37,13 @@
 							</div>
 						</div>
 						<div class="options">
-							<div class="option option--mod">
+							<div class="option option--mod" @click="closeProfile">
 								<router-link class="option" :to="{ name: 'Profile' }">
 									<UserIcon class="icon" />
 									<p>Profile</p>
 								</router-link>
 							</div>
-							<div class="option option--mod">
+							<div class="option option--mod" @click="closeProfile">
 								<router-link class="option" :to="{ name: 'Admin' }">
 									<AdminIcon class="icon" />
 									<p>Admin</p>
@@ -58,9 +58,9 @@
 				</div>
 			</div>
 		</nav>
-		<MenuIcon class="menu-icon" @click="toggleMobileNav" v-show="mobile" />
+		<MenuIcon class="menu-icon" @click.stop="toggleMobileNav" v-show="mobile" />
 		<transition name="mobile-nav">
-			<ul class="mobile-nav" v-show="mobileNav">
+			<ul class="mobile-nav" v-show="mobileNav" @click="closeMobileNav">
 				<router-link class="link" :to="{ name: 'Home' }">Home</router-link>
 				<router-link class="link" :to="{ name: 'Blogs' }">Blogs</router-link>
 				<router-link class="link" :to="{ name: 'CreatePost' }"
@@ -90,6 +90,7 @@ export default {
 		AdminIcon,
 		SignOutIcon
 	},
+	props: ["clickWindow"],
 	data() {
 		return {
 			profileMenu: false,
@@ -124,11 +125,25 @@ export default {
 		signOut() {
 			firebase.auth().signOut();
 			window.location.reload();
+		},
+		closeProfile() {
+			this.profileMenu = false;
+		},
+		closeMobileNav(e) {
+			if (e.target.className.includes("link")) {
+				this.mobileNav = false;
+			}
 		}
 	},
 	computed: {
 		user() {
 			return this.$store.state.user;
+		}
+	},
+	watch: {
+		clickWindow() {
+			this.profileMenu = false;
+			this.mobileNav = false;
 		}
 	}
 };
@@ -188,6 +203,10 @@ header {
 				border-radius: 50%;
 				color: #fff;
 				background-color: #303030;
+				transition: all 0.5s ease;
+				&:hover {
+					background-color: #666;
+				}
 				span {
 					pointer-events: none;
 				}
@@ -235,6 +254,7 @@ header {
 							align-items: center;
 							height: 40px;
 							width: 100%;
+							transition: all 0.5s ease;
 							&:hover {
 								background-color: #666;
 							}
@@ -262,9 +282,12 @@ header {
 		cursor: pointer;
 		position: absolute;
 		top: 32px;
-		right: 25px;
+		right: 80px;
 		height: 25px;
 		width: auto;
+		@media (min-width: 800px) {
+			right: 25px;
+		}
 	}
 	.mobile-nav {
 		padding: 20px;

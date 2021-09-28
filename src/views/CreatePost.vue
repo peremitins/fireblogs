@@ -24,8 +24,8 @@
 					>
 						Preview Photo
 					</button>
-					<span>File Chosen: {{ this.$store.state.blogPhotoName }}</span>
 				</div>
+				<span>File Chosen: {{ this.$store.state.blogPhotoName }}</span>
 			</div>
 			<div class="editor">
 				<vue-editor
@@ -201,13 +201,17 @@ export default {
 	.router-button {
 		transition: all 0.5s ease-in-out;
 		align-self: center;
-		font-size: 14px;
+		font-size: 12px;
+		padding: 10px 10px;
 		cursor: pointer;
 		border-radius: 20px;
-		padding: 12px 24px;
 		color: #fff;
 		background-color: #303030;
 		text-decoration: none;
+		@media (min-width: 800px) {
+			font-size: 14px;
+			padding: 12px 24px;
+		}
 		&:hover {
 			background-color: rgba(48, 48, 48, 0.7);
 		}
@@ -239,6 +243,11 @@ export default {
 	.blog-info {
 		display: flex;
 		margin-bottom: 32px;
+		flex-wrap: wrap;
+		flex-direction: column;
+		@media (min-width: 800px) {
+			flex-direction: row;
+		}
 		input:nth-child(1) {
 			min-width: 300px;
 		}
@@ -247,16 +256,23 @@ export default {
 			padding: 10px 4px;
 			border: none;
 			border-bottom: 1px solid #303030;
+			margin-bottom: 10px;
+			@media (min-width: 800px) {
+				margin-bottom: 0px;
+			}
 			&:focus {
 				outline: none;
 				box-shadow: 0 1px 0 0 #303030;
 			}
 		}
 		.upload-file {
-			flex: 1;
-			margin-left: 16px;
+			margin-left: 0px;
 			position: relative;
 			display: flex;
+			flex-wrap: wrap;
+			@media (min-width: 800px) {
+				margin-left: 16px;
+			}
 			input {
 				display: none;
 			}
@@ -264,15 +280,22 @@ export default {
 				margin-left: 16px;
 				text-transform: initial;
 			}
-			span {
-				font-size: 12px;
-				margin-left: 16px;
+		}
+		span {
+			display: block;
+			font-size: 12px;
+			margin-left: 0px;
+			margin-top: 10px;
+			align-self: flex-start;
+			@media (min-width: 900px) {
+				display: inline-block;
 				align-self: center;
+				margin-left: 16px;
+				margin-top: 0px;
 			}
 		}
 	}
 	.editor {
-		// height: 60vh;
 		display: flex;
 		flex-direction: column;
 		.quillWrapper {

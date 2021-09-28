@@ -12,6 +12,7 @@ import BlogPreview from "../views/BlogPreview.vue";
 import ViewBlog from "../views/ViewBlog.vue";
 import EditBlog from "../views/EditBlog.vue";
 
+
 Vue.use(VueRouter);
 
 const routes = [

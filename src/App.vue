@@ -1,7 +1,7 @@
 <template>
-	<div class="app-wrapper">
+	<div class="app-wrapper" @click="eventClick">
 		<div class="app" v-if="this.$store.state.postLoaded">
-			<Header v-if="!navigation"></Header>
+			<Header v-if="!navigation" :clickWindow="clickWindow"></Header>
 			<router-view />
 			<Footer v-if="!navigation"></Footer>
 		</div>
@@ -22,7 +22,8 @@ export default {
 	},
 	data() {
 		return {
-			navigation: null
+			navigation: null,
+			clickWindow: false
 		};
 	},
 	created() {
@@ -47,6 +48,9 @@ export default {
 				return;
 			}
 			this.navigation = false;
+		},
+		eventClick() {
+			this.clickWindow = !this.clickWindow;
 		}
 	},
 	watch: {
@@ -100,7 +104,6 @@ export default {
 		fill: #fff;
 	}
 }
-
 button,
 .router-button {
 	transition: all 0.5s ease;
@@ -172,6 +175,15 @@ button,
 		@media (min-width: 1200px) {
 			grid-template-columns: repeat(4, 1fr);
 		}
+	}
+}
+.content-preview {
+	span {
+		display: inline-block;
+		width: 250px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 }
 </style>
