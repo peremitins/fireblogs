@@ -1,5 +1,9 @@
 <template>
-	<div class="blog-card">
+	<router-link
+		tag="div"
+		class="blog-card"
+		:to="{ name: 'ViewBlog', params: { blogid: this.post.blogID } }"
+	>
 		<transition name="editButtonsAnim">
 			<div v-show="$store.state.editPost" class="icons">
 				<div @click="editPosts" class="icon">
@@ -25,7 +29,7 @@
 				>View The Post <Arrow class="arrow"
 			/></router-link>
 		</div>
-	</div>
+	</router-link>
 </template>
 
 <script>
