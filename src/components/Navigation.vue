@@ -56,9 +56,13 @@
 						</div>
 					</div>
 				</div>
+				<MenuIcon
+					class="menu-icon"
+					@click.stop="toggleMobileNav"
+					v-show="mobile"
+				/>
 			</div>
 		</nav>
-		<MenuIcon class="menu-icon" @click.stop="toggleMobileNav" v-show="mobile" />
 		<transition name="mobile-nav">
 			<ul class="mobile-nav" v-show="mobileNav" @click="closeMobileNav">
 				<router-link class="link" :to="{ name: 'Home' }">Home</router-link>
@@ -93,7 +97,7 @@ export default {
 	props: ["clickWindow"],
 	data() {
 		return {
-			profileMenu: false,
+			profileMenu: null,
 			mobile: null,
 			mobileNav: null,
 			windowWidth: null
@@ -144,6 +148,16 @@ export default {
 		clickWindow() {
 			this.profileMenu = false;
 			this.mobileNav = false;
+		},
+		profileMenu() {
+			if (this.profileMenu) {
+				this.mobileNav = false;
+			}
+		},
+		mobileNav() {
+			if (this.mobileNav) {
+				this.profileMenu = false;
+			}
 		}
 	}
 };
@@ -203,6 +217,7 @@ header {
 				border-radius: 50%;
 				color: #fff;
 				background-color: #303030;
+				order: 3;
 				transition: all 0.5s ease;
 				&:hover {
 					background-color: #666;
@@ -280,11 +295,12 @@ header {
 	}
 	.menu-icon {
 		cursor: pointer;
-		position: absolute;
 		top: 32px;
 		right: 80px;
 		height: 25px;
 		width: auto;
+		margin-right: 15px;
+		order: 2;
 		@media (min-width: 800px) {
 			right: 25px;
 		}
